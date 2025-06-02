@@ -23,3 +23,24 @@
 
 # NOTE 
 - Admin ek hi hai , means there are no other vendors here (means no vendors account) like amazon , this ecmom website is like a mini shop.
+
+## MongoDB
+-   some times this won't work 
+
+     mongoose.connect('mongodb://localhost:27017/Ecommerce'); 
+ 
+it means connect karo karo karoooo , use the below code too with this.
+
+-       .then(() => {
+            console.log('Connected to MongoDB');
+        })
+        .catch((err) => {
+            console.error('Error connecting to MongoDB:', err);
+        }); 
+
+- mongoose.connection give control of whole ecommerce db to me.
+- "localhost:27017"m means mere laptop pe chl rhe MongoDB sae connect hoga. Isko dynamic bnaana pdega.
+
+- 
+
+
