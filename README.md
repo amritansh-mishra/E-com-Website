@@ -41,6 +41,19 @@ it means connect karo karo karoooo , use the below code too with this.
 - mongoose.connection give control of whole ecommerce db to me.
 - "localhost:27017"m means mere laptop pe chl rhe MongoDB sae connect hoga. Isko dynamic bnaana pdega.
 
-- 
+## How to use debugger
+-   npm i debug
+
+-  const dbgr = require("Debug)(<"Name you want">)
+
+- replace console.log("connected) with dbgr("connected)
+
+- jb tk environment variable set nhi honge ki print kro tb tk dbgr print nhi krega.
+
+-  export DEBUG=developement:*  means (developement:*) is name vaale kae ab sae saare messages show krna. 
+
+- npm i config
+
+-  mongodb://localhost:27017 - send to developement.json folder
 
 
