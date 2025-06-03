@@ -56,4 +56,6 @@ it means connect karo karo karoooo , use the below code too with this.
 
 -  mongodb://localhost:27017 - send to developement.json folder
 
+- export NODE_ENV=developement
+
 

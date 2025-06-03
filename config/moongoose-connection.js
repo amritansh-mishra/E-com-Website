@@ -5,8 +5,6 @@ const config = require('config');
 
 const dbgr = require("debug")("developement:mongoose");
 
-
-
 mongoose
 .connect(`${config.get("MONGODB_URI")}/Ecommerce`)
 .then(() => {
