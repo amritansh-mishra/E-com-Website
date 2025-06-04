@@ -43,3 +43,22 @@ try{
         res.status(500).send("Error creating user");
     }
 }
+
+module.exports.loginUser = async (req, res) => {
+
+    let{ email , password} = req.body; 
+    //first we check if the user exists
+    let user = await userModel.findOne({ email: email });
+    if (!user) {
+        return res.status(400).send("User does not exist with this email");
+    }
+    // Then we check if the password is correct
+    let isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        return res.status(400).send("Invalid password");
+    }
+    // If the user exists and the password is correct, we generate a token
+    let token = generateToken(user);
+    res.cookie("token", token); // Set the token in a cookie
+    res.send(token); // Send the token back to the client  
+};

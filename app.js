@@ -7,8 +7,7 @@ const ownersRouter = require("./routes/ownersRouter");
 const productsRouter = require("./routes/productsRouter");
 const usersRouter = require("./routes/usersRouter");
 const indexRouter = require("./routes/index");
-const dotenv = require('dotenv');
-dotenv.config(); // Load environment variables from .env file
+require('dotenv').config();
 const{generateToken} = require('./utils/generateToken');
 
 
