@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const {registerUser} = require("../controllers/authController");
-const {loginUser} = require("../controllers/authController");
+const {registerUser, loginUser} = require("../controllers/authController");
+
 // Importing the registerUser and loginUser functions from authController.js
 // to handle user registration and login functionality
 // This is a basic router setup for the users section of an e-commerce application.

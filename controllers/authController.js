@@ -19,7 +19,7 @@ try{
     }
     // Hash the password before saving it to the database
     // bcrypt is used to hash the password for security
-    bcrypt.genSalt(10, async (err, salt) => {  
+    bcrypt.genSalt(10, (err, salt) => {  
         bcrypt.hash(password, salt, async (err, hash) => {   // Hash the password 
             if (err) {
                 console.error(err);
@@ -45,20 +45,31 @@ try{
 }
 
 module.exports.loginUser = async (req, res) => {
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body); // ← This should log an object, not undefined
 
-    let{ email , password} = req.body; 
-    //first we check if the user exists
-    let user = await userModel.findOne({ email: email });
+    let { email , password} = req.body; 
+
+    let user = await userModel.findOne({ email: email }); // Find the user by email
+
     if (!user) {
-        return res.status(400).send("User does not exist with this email");
+        return res.status(400).send("User not found with this email");
+    }   
+    if (!password) {
+        return res.status(400).send("Please provide a password");
     }
-    // Then we check if the password is correct
-    let isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.status(400).send("Invalid password");
-    }
-    // If the user exists and the password is correct, we generate a token
-    let token = generateToken(user);
-    res.cookie("token", token); // Set the token in a cookie
-    res.send(token); // Send the token back to the client  
+    // Compare the provided password with the hashed password in the database
+    bcrypt.compare(password, user.password, (err, result) => {
+       if (err) {
+            console.error(err);
+            return res.status(500).send("Error comparing passwords");
+        }
+        if (!result) {
+            return res.status(400).send("Invalid password");
+        }
+        let token = generateToken(user); // Generate a token for the user
+        res.cookie("token", token); // Set the token in a cookie
+        res.send("you can login"); // Send the token back to the client
+    });
+      
 };

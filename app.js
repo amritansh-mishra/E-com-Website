@@ -1,4 +1,4 @@
-const cookieParser = require('cookie-parser');
+require("dotenv").config();
 const express = require('express');
 const app = express();
 const db = require('./config/moongoose-connection');
@@ -7,9 +7,9 @@ const ownersRouter = require("./routes/ownersRouter");
 const productsRouter = require("./routes/productsRouter");
 const usersRouter = require("./routes/usersRouter");
 const indexRouter = require("./routes/index");
-require('dotenv').config();
-const{generateToken} = require('./utils/generateToken');
 
+const{generateToken} = require('./utils/generateToken');
+const cookieParser = require('cookie-parser');
 
 
 
