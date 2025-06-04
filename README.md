@@ -58,4 +58,13 @@ it means connect karo karo karoooo , use the below code too with this.
 
 - export NODE_ENV=developement
 
+- route bas developement phase mai chlana hai then ; (environment variable memomry mai save hote h)
+                 if(process.env.NODE_ENV === 'development') {
+                     router.post('/create', (req, res) => {
+                     res.send("hey");
+                    })
+                };
+
+ - ye route tb tk available h jb tk mera environment "developement" chal rha           
+
 
