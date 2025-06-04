@@ -65,6 +65,17 @@ it means connect karo karo karoooo , use the below code too with this.
                     })
                 };
 
- - ye route tb tk available h jb tk mera environment "developement" chal rha           
+ - ye route tb tk available h jb tk mera environment "developement" chal rha 
+
+
+ ## Routes
+
+ - / => signup or login 
+ - /shop = shop 
+ - /users/cart -> cart
+ - /admin -> admin-panel
+ - /owner/products -> show all projects
+ - /owner/admin ->show admin panel to create projects
+          
 
 
