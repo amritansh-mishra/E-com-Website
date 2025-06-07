@@ -80,4 +80,6 @@ it means connect karo karo karoooo , use the below code too with this.
 # Middle Ware 
  
  - (Is Logged in)
+ - isAdmin
+   
 
