@@ -69,7 +69,12 @@ module.exports.loginUser = async (req, res) => {
         }
         let token = generateToken(user); // Generate a token for the user
         res.cookie("token", token); // Set the token in a cookie
-        res.send("you can login"); // Send the token back to the client
+        // Redirect based on role
+        if (user.role === 'owner' || user.role === 'admin') {
+            return res.redirect('/owners/dashboard');  // owner/admin dashboard route
+        } else {
+            return res.redirect('/shop');  // normal customer route
+        }
     });
       
 };

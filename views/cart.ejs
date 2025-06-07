@@ -1,46 +1,79 @@
 <%- include('./partials/header') %>
-    <div class="w-full h-screen flex items-start px-20 py-20 gap-10">
-        <div class="w-[30%] rounded-md overflow-hidden">
-            <div class="w-full h-80 bg-yellow-500"></div>
-            <div class="w-full flex justify-between px-5 py-4">
-                <h3 class="text-2xl">Clinge Bag</h3>
-                <div class="flex items-center gap-2">
-                    <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-add-line"></i>
-                    <div class="px-2 py-1 rounded-md bg-white text-black">01</div>
-                    <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-subtract-line"></i>
-                </div>
-            </div>
-            <div class="flex items-center justify-between px-5 py-3">
-                <h4 class="text-lg">Net Total</h4>
-                <h2 class="text-lg">₹ 1200</h2>
-            </div>
+
+<% user.cart.forEach(function(item) { %>
+  <div class="w-full min-h-screen flex flex-col md:flex-row items-start px-6 md:px-20 py-10 gap-8 border-b border-gray-200">
+    
+    <!-- Product Preview -->
+    <div class="md:w-[30%] w-full rounded-xl shadow-md overflow-hidden">
+      <div class="w-full flex justify-center items-center h-64 bg-[<%= item.bgcolor %>]">
+        <img class="h-52 object-contain" src="data:image/jpeg;base64,<%= item.image.toString('base64') %>" alt="">
+      </div>
+      <div class="w-full flex justify-between px-5 py-4 bg-[<%= item.panelcolor %>] text-white">
+        <h3 class="text-xl font-semibold"><%= item.name %></h3>
+        <div class="flex items-center gap-2">
+          <i class="w-8 h-8 bg-white text-black flex rounded-full items-center justify-center shadow ri-add-line hover:bg-gray-200 cursor-pointer"></i>
+          <div class="px-2 py-1 rounded-md bg-white text-black text-sm font-medium">01</div>
+          <i class="w-8 h-8 bg-white text-black flex rounded-full items-center justify-center shadow ri-subtract-line hover:bg-gray-200 cursor-pointer"></i>
         </div>
-        <div class="w-[70%]">
-            <h3 class="text-xl">Price Breakdown</h3>
-            <div class="px-10 mt-5">
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Total MRP</h4>
-                    <h4>₹ 1920</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Discount on MRP</h4>
-                    <h4>₹ 0</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Platform Fee</h4>
-                    <h4>₹ 20</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Shipping Fee</h4>
-                    <h4>FREE</h4>
-                </div>
-            </div>
-            <div class="w-full h-[1px] bg-black mt-10"></div>
-            <div class="flex mt-5">
-                <h3 class="w-1/3 text-xl">Total Amount</h3>
-                <h3 class="font-semibold text-xl text-green-600">₹ 1940</h3>
-            </div>
-            <form action=""></form>
-        </div>
+      </div>
+      <div class="flex justify-between items-center text-white px-5 py-3 bg-[<%= item.textcolor %>] rounded-b-md">
+        <h4 class="text-md font-medium">Net Total</h4>
+        <h2 class="text-md font-semibold">₹ <%= item.price - item.discount + 20 %></h2>
+      </div>
+
+      <!-- 🗑️ Stylish Remove Button -->
+      <div class="px-5 py-3">
+        <a href="/removefromcart/<%= item._id %>" class="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 text-white font-medium px-4 py-2 rounded-full shadow-md hover:from-red-600 hover:to-red-700 transition-all">
+          <i class="ri-delete-bin-line text-lg"></i>
+          <span>Remove</span>
+        </a>
+      </div>
     </div>
-    <%- include('./partials/footer') %>
+
+    <!-- Price Breakdown -->
+    <div class="md:w-[70%] w-full bg-white rounded-xl shadow-md p-6">
+      <h3 class="text-2xl font-bold mb-6 border-b pb-2">Price Breakdown</h3>
+
+      <div class="space-y-3 text-gray-800">
+        <div class="flex justify-between">
+          <h4>Total MRP</h4>
+          <h4>₹ <%= item.price %></h4>
+        </div>
+        <div class="flex justify-between">
+          <h4>Discount on MRP</h4>
+          <h4>₹ <%= item.discount %></h4>
+        </div>
+        <div class="flex justify-between">
+          <h4>Platform Fee</h4>
+          <h4>₹ 20</h4>
+        </div>
+        <div class="flex justify-between">
+          <h4>Shipping Fee</h4>
+          <h4 class="text-green-600 font-medium">FREE</h4>
+        </div>
+      </div>
+
+      <div class="w-full h-[1px] bg-gray-300 my-6"></div>
+
+      <div class="flex justify-between text-lg font-semibold">
+        <h3>Total Amount</h3>
+        <h3 class="text-green-600">₹ <%= item.price - item.discount + 20 %></h3>
+      </div>
+    </div>
+  </div>
+<% }); %>
+
+<!-- Grand Total Summary Section -->
+<div class="w-full px-6 md:px-20 pb-10">
+  <div class="max-w-4xl mx-auto mt-10 bg-white rounded-xl shadow-md p-6 flex justify-between items-center border-t-2 border-gray-200">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Total Payable Amount</h2>
+      <p class="text-sm text-gray-500 mt-1">Including platform fee & discounts</p>
+    </div>
+    <h2 class="text-3xl font-extrabold text-green-600">₹ <%= total %></h2>
+  </div>
+</div>
+
+
+<%- include('./partials/footer') %>
+

@@ -1,56 +1,64 @@
 <%- include('./partials/header') %>
 
-<!-- Error Message Display Block--> 
-    <% if(error.length>0){ %>
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500">
-            <span class="inline-block mt-1 mb-1 text-white">
-                <%= error %>
-            </span>
-        </div>
-        <% } %>
-<!-- Main Layout - 2 column flex box-->
-            <div class="w-full h-screen flex px-20">
-                <!-- Full Screen layout split into 2 halves using tailwind "flex" and "w-1/2" -->
+<!-- 🔴 Error Message Display -->
+<% if(error.length > 0) { %>
+  <div class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-md bg-red-500 shadow-md">
+    <span class="text-white text-sm font-medium"><%= error %></span>
+  </div>
+<% } %>
 
-                <div class="w-1/2 flex items-center justify-center h-screen">
-                     <!--Left Side – Register Section-->
-                    <div class="w-full px-32">
-                        <h3 class="text-4xl">welcome to <span class="text-blue-400 font-semibold">Scatch</span></h3>
-                        <h4 class="text-2xl mb-5">create your account</h4>
-                        <!--Form submits POST to /users/register with:fullname, email, password-->
-                        <form autocomplete="off" action="/users/register" method="post">  
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="text" placeholder="Full Name" name="fullname">
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="email" placeholder="Email" name="email">
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="password" placeholder="Password" name="password">
-                            <input class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit"
-                                value="Register">
-                        </form>
-                    </div>
-                </div>
+<!-- 🔵 Main Page Layout: Two Panels Side-by-Side -->
+<div class="min-h-screen flex flex-col md:flex-row">
 
-                <div class="w-1/2 flex items-center justify-center h-screen">
-                    <!--Right Side – Login Section-->
-                    <div class="w-full px-32">
-                        <h4 class="text-2xl capitalize mb-5">login your account</h4>
-                        <form autocomplete="off" action="/users/login" method="post">
-                            <input
-                                class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="email" placeholder="Email" name="email">
-                            <input
-                                class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="password" placeholder="Password" name="password">
-                            <input class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit"
-                                value="Login">
-                        </form>
-                    </div>
-                </div>
-            </div>
-         </div> 
-                
-    <%- include('./partials/footer') %>
+  <!-- 🟣 Left Panel – Register Section -->
+  <div class="w-full md:w-1/2 flex items-center justify-center px-10 py-16 bg-gradient-to-br from-blue-50 to-blue-100">
+    <div class="max-w-md w-full">
+      <h2 class="text-4xl font-bold text-gray-800 mb-2">Welcome to <span class="text-blue-500">Scatch</span></h2>
+      <p class="text-lg text-gray-600 mb-6">Create your account</p>
+
+      <form autocomplete="off" action="/users/register" method="post" class="space-y-4">
+        <input
+          class="w-full px-4 py-2 rounded-md bg-white border border-gray-300 focus:outline-blue-400"
+          type="text" name="fullname" placeholder="Full Name">
+
+        <input
+          class="w-full px-4 py-2 rounded-md bg-white border border-gray-300 focus:outline-blue-400"
+          type="email" name="email" placeholder="Email">
+
+        <input
+          class="w-full px-4 py-2 rounded-md bg-white border border-gray-300 focus:outline-blue-400"
+          type="password" name="password" placeholder="Password">
+
+        <button type="submit"
+          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-full transition duration-200">
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 🟢 Right Panel – Login Section -->
+  <div class="w-full md:w-1/2 flex items-center justify-center px-10 py-16 bg-white">
+    <div class="max-w-md w-full">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Login to your account</h2>
+
+      <form autocomplete="off" action="/users/login" method="post" class="space-y-4">
+        <input
+          class="w-full px-4 py-2 rounded-md bg-zinc-100 border border-gray-300 focus:outline-blue-400"
+          type="email" name="email" placeholder="Email">
+
+        <input
+          class="w-full px-4 py-2 rounded-md bg-zinc-100 border border-gray-300 focus:outline-blue-400"
+          type="password" name="password" placeholder="Password">
+
+        <button type="submit"
+          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-full transition duration-200">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<%- include('./partials/footer') %>
