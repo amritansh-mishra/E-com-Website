@@ -10,10 +10,11 @@ const userSchema = new mongoose.Schema({
 
     password: String,
 
-    cart: {
-        type: Array,
-        default: [],
-    },
+    cart: [{
+        type: mongoose.Schema.Types.ObjectId,   //cart ek aisa aray hai jisme product ki ids hongi
+        //ismai bas ek pdt ek baar add hoga
+        ref: 'product',  //ref se pata chalta hai ki ye product model se related hain 
+    }],
 
     orders: {
         type: Array,
