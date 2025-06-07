@@ -73,3 +73,8 @@ module.exports.loginUser = async (req, res) => {
     });
       
 };
+
+module.exports.logoutUser = (req, res) => {
+    res.clearCookie("token"); // Clear the token cookie to log out the user
+    res.redirect("/"); // Redirect to the home page after logout
+};

@@ -8,14 +8,20 @@
         </div>
         <% } %>
 
+<!-- Sets the container to take at least the full height of the screen.
+ Uses Flexbox with vertical stacking.
+-->
             <div class="min-h-screen flex flex-col">
+                <!--flex-grow allows it to take remaining vertical space.-->
                 <div class="container px-10 py-20 flex flex-grow">
+                    <!-- Left Sidebar for navigation links -->
                     <div class="w-[25%] flex h-screen flex-col items-start">
                         <div class="flex flex-col">
                             <a class="block w-fit mb-2" href="">All Products</a>
                             <a class="block w-fit mb-2" href="">Create new product</a>
                         </div>
                     </div>
+                    <!-- Main Form Section -->
                     <main class="w-3/4 bg-white p-8 shadow ml-4">
                         <h2 class="text-xl font-bold mb-4">Create New Product</h2>
                         <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">

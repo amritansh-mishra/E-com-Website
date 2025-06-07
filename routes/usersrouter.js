@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {registerUser, loginUser} = require("../controllers/authController");
+const {registerUser, loginUser, logoutUser} = require("../controllers/authController");
 
 // Importing the registerUser and loginUser functions from authController.js
 // to handle user registration and login functionality
@@ -13,6 +13,7 @@ router.post('/register', registerUser); //all code is send authController.js
 
 router.post('/login', loginUser); //  loginUser function in authController.js
 
+router.get('/logout', logoutUser);
 
 module.exports = router;
 
