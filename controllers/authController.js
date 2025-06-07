@@ -1,4 +1,5 @@
 const userModel = require('../models/user-models');
+const ownerModel = require('../models/owner-models')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { generateToken } = require("../utils/generateToken");
@@ -45,19 +46,22 @@ try{
 }
 
 module.exports.loginUser = async (req, res) => {
-    console.log("Headers:", req.headers);
-    console.log("Body:", req.body); // ← This should log an object, not undefined
-
     let { email , password} = req.body; 
 
-    let user = await userModel.findOne({ email: email }); // Find the user by email
+    let user = await ownerModel.findOne({ email: email }); 
 
     if (!user) {
-        return res.status(400).send("User not found with this email");
-    }   
-    if (!password) {
-        return res.status(400).send("Please provide a password");
+        user= await userModel.findOne({ email });
     }
+    if (!user) {
+        return res.status(400).send("User not found with this email");
+    }
+
+    console.log("User role is:", user.role);
+
+
+
+    
     // Compare the provided password with the hashed password in the database
     bcrypt.compare(password, user.password, (err, result) => {
        if (err) {
@@ -70,8 +74,8 @@ module.exports.loginUser = async (req, res) => {
         let token = generateToken(user); // Generate a token for the user
         res.cookie("token", token); // Set the token in a cookie
         // Redirect based on role
-        if (user.role === 'owner' || user.role === 'admin') {
-            return res.redirect('/owners/dashboard');  // owner/admin dashboard route
+        if (user.role === 'owner') {
+            return res.redirect('/owners/admin'); //to admin route
         } else {
             return res.redirect('/shop');  // normal customer route
         }

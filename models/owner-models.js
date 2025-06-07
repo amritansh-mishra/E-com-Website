@@ -14,6 +14,12 @@ const ownerSchema = new mongoose.Schema({
 
     picture: String,
 
-    });
+    role: {
+        type: String,
+        default: 'owner'  // or required: true if you want
+    },
+
+});
+
 
 module.exports = mongoose.model('owner', ownerSchema);

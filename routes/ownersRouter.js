@@ -2,38 +2,54 @@ const express = require('express');
 const { model } = require('mongoose');
 const router = express.Router();
 const ownerModel = require('../models/owner-models');
+const isAdmin = require('../middlewares/isAdmin');
+const bcrypt = require('bcrypt');
+
+
 // Importing the owner model to interact with the owners collection in the database
 
 
-if(process.env.NODE_ENV === 'development') {
-    router.post('/create', async (req, res) => {
+// ===========================
+// 1. Create Owner (only once)
+// ===========================
+if (process.env.NODE_ENV === 'development') {
+  router.post('/create', async (req, res) => {
+    try {
+        // checks if owner exist
+      const existingOwners = await ownerModel.find();
+      if (existingOwners.length > 0) {
+        return res
+          .status(403)
+          .send("Owner already exists. Permission denied to create another.");
+      }
 
-        let owner= await ownerModel.find();
-        if(owner.length > 0) {
-            return res
-            .status(500)
-            .send("Owner already exists,permission denied to create another owner");
-        }
-        let { fullname, email, password } = req.body;
+      const { fullname, email, password } = req.body;
 
-        let createdOwner = await ownerModel.create({
-            fullname,
-            email,
-            password
-        });
-        res.status(201).send(createdOwner);
-        // Here you would typically create a new owner in the database
+      if (!fullname || !email || !password) {
+        return res.status(400).send("All fields are required.");
+      }
 
+      const hashedPassword = await bcrypt.hash(password, 10); // secure the password
 
-    })
-};
+      const createdOwner = await ownerModel.create({
+        fullname,
+        email,
+        password: hashedPassword,
+        role: 'owner' // important: this field is used to verify access
+      });
 
+      res.status(201).send("Owner created successfully.");
+    } catch (err) {
+      console.error("Error creating owner:", err);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+}
 
-router.get('/admin', (req, res) => {
+router.get('/admin', isAdmin, (req, res) => {
     let success = req.flash("success");
     res.render('createproducts', {success}); 
 });
-
 
 
 module.exports = router;

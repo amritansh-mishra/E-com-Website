@@ -1,9 +1,13 @@
 const jwt = require('jsonwebtoken');
 
 const generateToken = (user) => {
-    console.log(process.env.JWT_SECRET);
     //yaha par voh details pass karte hain jo humein chahiye hoti hain jb token decode hota hai
-    return jwt.sign({email: user.email, id: user._id}, process.env.JWT_KEY);
+    return jwt.sign({
+        email: user.email,
+        id: user._id,
+        role: user.role
+        }, 
+        process.env.JWT_KEY);
 };
 
 module.exports.generateToken = generateToken;
