@@ -77,7 +77,7 @@ it means connect karo karo karoooo , use the below code too with this.
  - /owner/products -> show all projects
  - /owner/admin ->show admin panel to create projects
 
-# Middle Ware 
+# MiddleWare 
  
  - (Is Logged in)
  - isAdmin
