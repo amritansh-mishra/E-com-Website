@@ -1,7 +1,7 @@
 # USERMODEL 
 - email -string
 - password - string
-- cart -  array of strings
+- cart - array of strings
 - isadmin - boolean
 - fullname - string
 - orders (user kae orders ka data hona chahiye)
@@ -15,7 +15,7 @@
 - pdt price
 - discount
 - panelcolor
-- bg colour
+- background colour
 - text colour
 
 
